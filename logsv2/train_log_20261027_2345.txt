@@ -1,0 +1,641 @@
+2026-10-27 23:45:30,005 transreid INFO: Saving model in the path :./logs/UAD_V2
+2026-10-27 23:45:30,006 transreid INFO: Namespace(config_file='configs/UAD_V2.yml', local_rank=0, opts=['MODEL.DIST_TRAIN', 'True', 'MODEL.VISA_ADAPT.RESUME_CHECKPOINT', '/project/code/WHU_base/ViSA+MD+MP/v2/logs/UAD_V2/transformer_40.pth', 'SOLVER.IMS_PER_BATCH', '256', 'SOLVER.BASE_LR', '0.0005', 'SOLVER.MAX_EPOCHS', '60', 'TEST.IMS_PER_BATCH', '32', 'OUTPUT_DIR', './logs/UAD_V2'])
+2026-10-27 23:45:30,006 transreid INFO: DDP initialized with 4 processes; global sampler batch=256, per-GPU sampler batch=64, actual images per GPU=192
+2026-10-27 23:45:30,006 transreid INFO: Loaded configuration file configs/UAD_V2.yml
+2026-10-27 23:45:30,006 transreid INFO: Running with config:
+DATALOADER:
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 8
+  SAMPLER: PKM
+DATASETS:
+  DATASET_DIR: WHU-MARS
+  FILTER_GD: False
+  MODALITIES: ('RGB', 'IR', 'Thermal')
+  NAMES: WHU-MARS
+  ROOT_DIR: /project/code/data
+INPUT:
+  PADDING: 10
+  PIXEL_MEAN: [0.5, 0.5, 0.5]
+  PIXEL_STD: [0.5, 0.5, 0.5]
+  PROB: 0.5
+  RE_PROB: 0.5
+  SIZE_TEST: [256, 128]
+  SIZE_TRAIN: [256, 128]
+MODEL:
+  ATT_DROP_RATE: 0.0
+  COS_LAYER: False
+  DEVICE: cuda
+  DEVICE_ID: 0
+  DEVIDE_LENGTH: 4
+  DIST_TRAIN: True
+  DROP_OUT: 0.0
+  DROP_PATH: 0.1
+  GPD_MOMENTUM: 0.2
+  ID_LOSS_TYPE: softmax
+  ID_LOSS_WEIGHT: 1.0
+  IF_LABELSMOOTH: off
+  IF_WITH_CENTER: no
+  JPM: False
+  LAST_STRIDE: 1
+  METRIC_LOSS_TYPE: wrt
+  NAME: transformer
+  NECK: bnneck
+  NO_MARGIN: False
+  PCA_LOSS_WEIGHT: 0.01
+  PRETRAIN_CHOICE: none
+  PRETRAIN_PATH: 
+  RE_ARRANGE: True
+  SHIFT_NUM: 5
+  SHUFFLE_GROUP: 2
+  SIE_CAMERA: False
+  SIE_COE: 3.0
+  SIE_VIEW: False
+  STRIDE_SIZE: [16, 16]
+  TRANSFORMER_TYPE: vit_base_in
+  TRIPLET_LOSS_WEIGHT: 1.0
+  VISA_ADAPT:
+    BALANCE_WEIGHT: 0.0001
+    EXPERTS: 4
+    FUSION_BETA: 0.5
+    FUSION_WRT_WEIGHT: 0.3
+    GRAPH_K: 40
+    HEADS: 12
+    LOCAL_CE_WEIGHT: 0.05
+    LOCAL_CM_WEIGHT: 0.1
+    LOSS_RAMP_EPOCHS: 10
+    MODE: full
+    NEW_LR_FACTOR: 16.0
+    PROMPT_LEN: 8
+    RESUME_CHECKPOINT: /project/code/WHU_base/ViSA+MD+MP/v2/logs/UAD_V2/transformer_40.pth
+    SPECIFIC_WRT_WEIGHT: 0.05
+    TOP_K: 2
+    UAD_CHECKPOINT: /project/code/WHU_base/WHU_DDP/logs/UAD_1000_DDP/transformer_120.pth
+OUTPUT_DIR: ./logs/UAD_V2
+SOLVER:
+  BASE_LR: 0.0005
+  BIAS_LR_FACTOR: 2
+  CENTER_LOSS_WEIGHT: 0.0005
+  CENTER_LR: 0.5
+  CHECKPOINT_PERIOD: 10
+  COSINE_MARGIN: 0.5
+  COSINE_SCALE: 30
+  EVAL_PERIOD: 10
+  GAMMA: 0.1
+  IMS_PER_BATCH: 256
+  LARGE_FC_LR: False
+  LOG_PERIOD: 100
+  LOSS_TYPE: base+pca+gpd
+  MARGIN: 0.3
+  MAX_EPOCHS: 60
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: SGD
+  SEED: 1234
+  STEPS: (40, 70)
+  WARMUP_EPOCHS: 5
+  WARMUP_FACTOR: 0.01
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0001
+TEST:
+  DETAILED_DOMAIN_EVAL: True
+  DIST_MAT: dist_mat.npy
+  EVAL: False
+  FEAT_NORM: yes
+  IMS_PER_BATCH: 32
+  NECK_FEAT: before
+  RE_RANKING: False
+  TOP_K_EVAL: 0
+  WEIGHT: 
+2026-10-27 23:45:35,770 transreid.train INFO: start training
+2026-10-27 23:45:36,377 transreid.train INFO: Using 4 GPUs for DDP training
+2026-10-27 23:45:36,658 transreid.train INFO: Feature dimension: 768; identities: 500
+2026-10-27 23:48:07,105 transreid.train INFO: Epoch[41] Iteration[100/114] Loss: 0.591, Acc: 0.980, Base Lr: 1.83e-03
+2026-10-27 23:48:07,105 transreid.train INFO: Epoch[41] 0.097, 0.107, 0.195, 0.078
+2026-10-27 23:48:07,106 transreid.train INFO: V2 losses: SpecificWRT=0.1052 LocalCE=0.4486 LocalCM=1.1666 FusionWRT=0.4905 Balance=1.0063; CM valid={'0->1': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-27 23:48:26,048 transreid.train INFO: Epoch 41 done. Time per batch: 1.474[s] Total: 168.1[s]
+2026-10-27 23:50:46,036 transreid.train INFO: Epoch[42] Iteration[100/114] Loss: 0.603, Acc: 0.981, Base Lr: 1.66e-03
+2026-10-27 23:50:46,036 transreid.train INFO: Epoch[42] 0.099, 0.111, 0.195, 0.082
+2026-10-27 23:50:46,037 transreid.train INFO: V2 losses: SpecificWRT=0.1461 LocalCE=0.4594 LocalCM=1.1737 FusionWRT=0.4964 Balance=1.0062; CM valid={'0->1': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(63, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(56, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(56, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-27 23:51:04,851 transreid.train INFO: Epoch 42 done. Time per batch: 1.393[s] Total: 158.8[s]
+2026-10-27 23:53:23,729 transreid.train INFO: Epoch[43] Iteration[100/114] Loss: 0.593, Acc: 0.981, Base Lr: 1.50e-03
+2026-10-27 23:53:23,730 transreid.train INFO: Epoch[43] 0.098, 0.107, 0.195, 0.078
+2026-10-27 23:53:23,730 transreid.train INFO: V2 losses: SpecificWRT=0.1311 LocalCE=0.3329 LocalCM=1.1914 FusionWRT=0.4924 Balance=1.0084; CM valid={'0->1': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-27 23:53:42,789 transreid.train INFO: Epoch 43 done. Time per batch: 1.385[s] Total: 157.9[s]
+2026-10-27 23:56:00,660 transreid.train INFO: Epoch[44] Iteration[100/115] Loss: 0.595, Acc: 0.979, Base Lr: 1.34e-03
+2026-10-27 23:56:00,661 transreid.train INFO: Epoch[44] 0.098, 0.109, 0.194, 0.079
+2026-10-27 23:56:00,661 transreid.train INFO: V2 losses: SpecificWRT=0.0980 LocalCE=0.3409 LocalCM=1.1367 FusionWRT=0.4859 Balance=1.0094; CM valid={'0->1': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(63, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-27 23:56:20,654 transreid.train INFO: Epoch 44 done. Time per batch: 1.373[s] Total: 157.9[s]
+2026-10-27 23:58:38,902 transreid.train INFO: Epoch[45] Iteration[100/114] Loss: 0.607, Acc: 0.978, Base Lr: 1.19e-03
+2026-10-27 23:58:38,903 transreid.train INFO: Epoch[45] 0.105, 0.109, 0.196, 0.084
+2026-10-27 23:58:38,903 transreid.train INFO: V2 losses: SpecificWRT=0.1145 LocalCE=0.4128 LocalCM=1.0470 FusionWRT=0.4893 Balance=1.0042; CM valid={'0->1': (tensor(51, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(57, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(57, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(56, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(52, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-27 23:58:56,715 transreid.train INFO: Epoch 45 done. Time per batch: 1.369[s] Total: 156.1[s]
+2026-10-28 00:01:14,203 transreid.train INFO: Epoch[46] Iteration[100/114] Loss: 0.613, Acc: 0.978, Base Lr: 1.04e-03
+2026-10-28 00:01:14,204 transreid.train INFO: Epoch[46] 0.105, 0.113, 0.194, 0.086
+2026-10-28 00:01:14,204 transreid.train INFO: V2 losses: SpecificWRT=0.1413 LocalCE=0.4329 LocalCM=1.2138 FusionWRT=0.4947 Balance=1.0070; CM valid={'0->1': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(63, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:01:33,159 transreid.train INFO: Epoch 46 done. Time per batch: 1.372[s] Total: 156.4[s]
+2026-10-28 00:03:49,817 transreid.train INFO: Epoch[47] Iteration[100/114] Loss: 0.595, Acc: 0.980, Base Lr: 9.06e-04
+2026-10-28 00:03:49,817 transreid.train INFO: Epoch[47] 0.100, 0.107, 0.194, 0.080
+2026-10-28 00:03:49,818 transreid.train INFO: V2 losses: SpecificWRT=0.0849 LocalCE=0.3916 LocalCM=1.0731 FusionWRT=0.4933 Balance=1.0068; CM valid={'0->1': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(55, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(63, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:04:08,809 transreid.train INFO: Epoch 47 done. Time per batch: 1.365[s] Total: 155.6[s]
+2026-10-28 00:06:26,095 transreid.train INFO: Epoch[48] Iteration[100/115] Loss: 0.593, Acc: 0.980, Base Lr: 7.78e-04
+2026-10-28 00:06:26,096 transreid.train INFO: Epoch[48] 0.098, 0.109, 0.193, 0.079
+2026-10-28 00:06:26,096 transreid.train INFO: V2 losses: SpecificWRT=0.1071 LocalCE=0.3078 LocalCM=1.1236 FusionWRT=0.4883 Balance=1.0111; CM valid={'0->1': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(57, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:06:46,548 transreid.train INFO: Epoch 48 done. Time per batch: 1.372[s] Total: 157.7[s]
+2026-10-28 00:09:04,885 transreid.train INFO: Epoch[49] Iteration[100/115] Loss: 0.589, Acc: 0.980, Base Lr: 6.60e-04
+2026-10-28 00:09:04,885 transreid.train INFO: Epoch[49] 0.097, 0.108, 0.195, 0.078
+2026-10-28 00:09:04,886 transreid.train INFO: V2 losses: SpecificWRT=0.1059 LocalCE=0.4164 LocalCM=1.0342 FusionWRT=0.4854 Balance=1.0072; CM valid={'0->1': (tensor(63, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(56, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(57, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(57, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(62, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:09:25,332 transreid.train INFO: Epoch 49 done. Time per batch: 1.381[s] Total: 158.8[s]
+2026-10-28 00:11:43,669 transreid.train INFO: Epoch[50] Iteration[100/114] Loss: 0.591, Acc: 0.980, Base Lr: 5.51e-04
+2026-10-28 00:11:43,670 transreid.train INFO: Epoch[50] 0.096, 0.109, 0.194, 0.078
+2026-10-28 00:11:43,670 transreid.train INFO: V2 losses: SpecificWRT=0.1128 LocalCE=0.3918 LocalCM=1.1290 FusionWRT=0.4881 Balance=1.0061; CM valid={'0->1': (tensor(62, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(63, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:12:02,892 transreid.train INFO: Epoch 50 done. Time per batch: 1.382[s] Total: 157.6[s]
+2026-10-28 00:14:36,285 transreid.train INFO: => Split mode 1: query 2135, total query 2135
+2026-10-28 00:14:41,350 transreid.train INFO: The test feature is normalized
+2026-10-28 00:14:41,420 transreid.train INFO: => Computing DistMat in q-chunks (chunk=4000)
+2026-10-28 00:16:18,651 transreid.train INFO: Starting modality-pair specific evaluation. Query mods: [1, 2, 3], Gallery mods: [1, 2, 3]
+2026-10-28 00:16:27,267 transreid.train INFO:   Pair (Q:1, G:1) -> Rank-1: 42.53%, mAP: 26.70%, mINP: 5.15%
+2026-10-28 00:16:36,227 transreid.train INFO:   Pair (Q:1, G:2) -> Rank-1: 27.26%, mAP: 16.17%, mINP: 2.29%
+2026-10-28 00:16:44,981 transreid.train INFO:   Pair (Q:1, G:3) -> Rank-1: 7.40%, mAP: 5.68%, mINP: 1.11%
+2026-10-28 00:16:53,829 transreid.train INFO:   Pair (Q:2, G:1) -> Rank-1: 24.78%, mAP: 15.76%, mINP: 2.86%
+2026-10-28 00:17:02,926 transreid.train INFO:   Pair (Q:2, G:2) -> Rank-1: 28.06%, mAP: 16.98%, mINP: 2.45%
+2026-10-28 00:17:12,154 transreid.train INFO:   Pair (Q:2, G:3) -> Rank-1: 6.51%, mAP: 5.29%, mINP: 1.06%
+2026-10-28 00:17:20,595 transreid.train INFO:   Pair (Q:3, G:1) -> Rank-1: 7.54%, mAP: 5.89%, mINP: 1.31%
+2026-10-28 00:17:28,972 transreid.train INFO:   Pair (Q:3, G:2) -> Rank-1: 7.78%, mAP: 5.26%, mINP: 1.01%
+2026-10-28 00:17:40,583 transreid.train INFO:   Pair (Q:3, G:3) -> Rank-1: 20.94%, mAP: 13.62%, mINP: 2.31%
+2026-10-28 00:17:40,583 transreid.train INFO: VI-ReID results (Table 5 protocol):
+2026-10-28 00:17:40,583 transreid.train INFO:   Setting   Rank-1     mAP    mINP
+2026-10-28 00:17:40,583 transreid.train INFO:   NIR->RGB    24.78%  15.76%   2.86%
+2026-10-28 00:17:40,583 transreid.train INFO:   TIR->RGB     7.54%   5.89%   1.31%
+2026-10-28 00:17:40,583 transreid.train INFO: Modality-pair results (Table 6 protocol):
+2026-10-28 00:17:40,583 transreid.train INFO:   Query Gallery  Rank-1     mAP    mINP
+2026-10-28 00:17:40,583 transreid.train INFO:     RGB     RGB  42.53%  26.70%   5.15%
+2026-10-28 00:17:40,584 transreid.train INFO:     RGB     NIR  27.26%  16.17%   2.29%
+2026-10-28 00:17:40,584 transreid.train INFO:     RGB     TIR   7.40%   5.68%   1.11%
+2026-10-28 00:17:40,584 transreid.train INFO:     NIR     RGB  24.78%  15.76%   2.86%
+2026-10-28 00:17:40,584 transreid.train INFO:     NIR     NIR  28.06%  16.98%   2.45%
+2026-10-28 00:17:40,584 transreid.train INFO:     NIR     TIR   6.51%   5.29%   1.06%
+2026-10-28 00:17:40,584 transreid.train INFO:     TIR     RGB   7.54%   5.89%   1.31%
+2026-10-28 00:17:40,584 transreid.train INFO:     TIR     NIR   7.78%   5.26%   1.01%
+2026-10-28 00:17:40,584 transreid.train INFO:     TIR     TIR  20.94%  13.62%   2.31%
+2026-10-28 00:17:40,585 transreid.train INFO: AG-ReID results (Table 4 protocol; all modalities):
+2026-10-28 00:17:56,986 transreid.train INFO:   A->G -> mAP: 11.54%, Rank-1: 32.07%, Rank-10: 59.33%
+2026-10-28 00:18:11,570 transreid.train INFO:   G->A -> mAP: 13.38%, Rank-1: 30.49%, Rank-10: 54.55%
+2026-10-28 00:18:12,223 transreid.train INFO: Detailed modality-platform evaluation (same-camera gallery samples excluded for every query):
+2026-10-28 00:18:12,223 transreid.train INFO:   Category                                  Query->Gallery       Query Gallery ValidQ  Rank-1     mAP    mINP
+2026-10-28 00:18:17,440 transreid.train INFO:   same_modality_same_platform               RGB-G->RGB-G    1685   23422   1510  42.58%  28.47%   6.68%
+2026-10-28 00:18:17,448 transreid.train INFO:   same_modality_same_platform               RGB-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:18:22,480 transreid.train INFO:   same_modality_same_platform               NIR-G->NIR-G    1685   23422   1510  25.56%  17.25%   3.49%
+2026-10-28 00:18:22,493 transreid.train INFO:   same_modality_same_platform               NIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:18:27,209 transreid.train INFO:   same_modality_same_platform               TIR-G->TIR-G    1685   23422   1510  21.99%  14.86%   2.89%
+2026-10-28 00:18:27,217 transreid.train INFO:   same_modality_same_platform               TIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:18:32,653 transreid.train INFO:   modality_only_ground                      RGB-G->NIR-G    1685   23422   1510  28.01%  17.47%   3.06%
+2026-10-28 00:18:37,793 transreid.train INFO:   modality_only_ground                      NIR-G->RGB-G    1685   23422   1510  25.17%  17.03%   3.60%
+2026-10-28 00:18:43,023 transreid.train INFO:   modality_only_ground                      RGB-G->TIR-G    1685   23422   1510   8.21%   6.52%   1.43%
+2026-10-28 00:18:48,187 transreid.train INFO:   modality_only_ground                      TIR-G->RGB-G    1685   23422   1510   7.88%   6.69%   1.71%
+2026-10-28 00:18:53,203 transreid.train INFO:   modality_only_ground                      NIR-G->TIR-G    1685   23422   1510   6.16%   5.56%   1.27%
+2026-10-28 00:18:58,220 transreid.train INFO:   modality_only_ground                      TIR-G->NIR-G    1685   23422   1510   8.68%   5.90%   1.35%
+2026-10-28 00:18:58,229 transreid.train INFO:   modality_only_aerial                      RGB-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:18:58,238 transreid.train INFO:   modality_only_aerial                      NIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:18:58,246 transreid.train INFO:   modality_only_aerial                      RGB-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:18:58,255 transreid.train INFO:   modality_only_aerial                      TIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:18:58,264 transreid.train INFO:   modality_only_aerial                      NIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:18:58,276 transreid.train INFO:   modality_only_aerial                      TIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:18:59,787 transreid.train INFO:   platform_only                             RGB-G->RGB-A    1685    7781    644  43.32%  31.24%  10.68%
+2026-10-28 00:19:01,228 transreid.train INFO:   platform_only                             RGB-A->RGB-G     450   23422    450  42.00%  28.04%   5.43%
+2026-10-28 00:19:02,715 transreid.train INFO:   platform_only                             NIR-G->NIR-A    1685    7781    644  34.63%  24.11%   5.50%
+2026-10-28 00:19:04,231 transreid.train INFO:   platform_only                             NIR-A->NIR-G     450   23422    450  34.22%  19.50%   2.70%
+2026-10-28 00:19:05,708 transreid.train INFO:   platform_only                             TIR-G->TIR-A    1685    7781    644  20.03%  15.32%   4.15%
+2026-10-28 00:19:07,172 transreid.train INFO:   platform_only                             TIR-A->TIR-G     450   23422    450  22.44%  13.95%   2.14%
+2026-10-28 00:19:08,528 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->NIR-A    1685    7781    644  28.11%  20.68%   5.13%
+2026-10-28 00:19:09,946 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->TIR-A    1685    7781    644   6.21%   6.36%   2.33%
+2026-10-28 00:19:11,391 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->RGB-A    1685    7781    644  20.81%  16.33%   4.99%
+2026-10-28 00:19:12,910 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->TIR-A    1685    7781    644   6.68%   6.77%   2.09%
+2026-10-28 00:19:14,322 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->RGB-A    1685    7781    644   7.76%   7.24%   2.49%
+2026-10-28 00:19:15,825 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->NIR-A    1685    7781    644   8.54%   6.89%   2.09%
+2026-10-28 00:19:17,232 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->NIR-G     450   23422    450  24.67%  14.56%   1.97%
+2026-10-28 00:19:18,679 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->TIR-G     450   23422    450   8.22%   6.12%   1.18%
+2026-10-28 00:19:20,066 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->RGB-G     450   23422    450  29.11%  17.56%   3.10%
+2026-10-28 00:19:21,569 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->TIR-G     450   23422    450   7.78%   5.93%   1.20%
+2026-10-28 00:19:23,079 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->RGB-G     450   23422    450   8.22%   5.70%   1.30%
+2026-10-28 00:19:24,713 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->NIR-G     450   23422    450   4.89%   4.72%   1.03%
+2026-10-28 00:19:24,714 transreid.train INFO: => Detailed protocol CSV saved to ./logs/UAD_V2/global_domains_epoch_50.csv
+2026-10-28 00:19:24,724 transreid.train INFO: Validation Results - Epoch: 50, global
+2026-10-28 00:19:24,724 transreid.train INFO: mAP: 11.10%, mINP: 0.67%
+2026-10-28 00:19:24,724 transreid.train INFO: CMC curve, Rank-1 : 29.88%
+2026-10-28 00:19:24,724 transreid.train INFO: CMC curve, Rank-5 : 46.56%
+2026-10-28 00:19:24,724 transreid.train INFO: CMC curve, Rank-10: 55.14%
+2026-10-28 00:19:24,812 transreid.train INFO: => Split mode 1: query 2135, total query 2135
+2026-10-28 00:19:25,784 transreid.train INFO: The test feature is normalized
+2026-10-28 00:19:25,846 transreid.train INFO: => Computing DistMat in q-chunks (chunk=4000)
+2026-10-28 00:20:54,052 transreid.train INFO: Starting modality-pair specific evaluation. Query mods: [1, 2, 3], Gallery mods: [1, 2, 3]
+2026-10-28 00:21:04,728 transreid.train INFO:   Pair (Q:1, G:1) -> Rank-1: 35.60%, mAP: 22.53%, mINP: 4.21%
+2026-10-28 00:21:15,757 transreid.train INFO:   Pair (Q:1, G:2) -> Rank-1: 23.09%, mAP: 14.36%, mINP: 2.32%
+2026-10-28 00:21:25,245 transreid.train INFO:   Pair (Q:1, G:3) -> Rank-1: 6.42%, mAP: 5.32%, mINP: 1.23%
+2026-10-28 00:21:34,539 transreid.train INFO:   Pair (Q:2, G:1) -> Rank-1: 21.03%, mAP: 14.04%, mINP: 2.91%
+2026-10-28 00:21:43,691 transreid.train INFO:   Pair (Q:2, G:2) -> Rank-1: 23.79%, mAP: 14.85%, mINP: 2.37%
+2026-10-28 00:21:53,123 transreid.train INFO:   Pair (Q:2, G:3) -> Rank-1: 6.56%, mAP: 5.10%, mINP: 1.21%
+2026-10-28 00:22:02,448 transreid.train INFO:   Pair (Q:3, G:1) -> Rank-1: 7.07%, mAP: 5.61%, mINP: 1.48%
+2026-10-28 00:22:11,667 transreid.train INFO:   Pair (Q:3, G:2) -> Rank-1: 6.32%, mAP: 4.99%, mINP: 1.15%
+2026-10-28 00:22:20,501 transreid.train INFO:   Pair (Q:3, G:3) -> Rank-1: 17.42%, mAP: 11.44%, mINP: 2.18%
+2026-10-28 00:22:20,501 transreid.train INFO: VI-ReID results (Table 5 protocol):
+2026-10-28 00:22:20,501 transreid.train INFO:   Setting   Rank-1     mAP    mINP
+2026-10-28 00:22:20,501 transreid.train INFO:   NIR->RGB    21.03%  14.04%   2.91%
+2026-10-28 00:22:20,501 transreid.train INFO:   TIR->RGB     7.07%   5.61%   1.48%
+2026-10-28 00:22:20,501 transreid.train INFO: Modality-pair results (Table 6 protocol):
+2026-10-28 00:22:20,501 transreid.train INFO:   Query Gallery  Rank-1     mAP    mINP
+2026-10-28 00:22:20,502 transreid.train INFO:     RGB     RGB  35.60%  22.53%   4.21%
+2026-10-28 00:22:20,502 transreid.train INFO:     RGB     NIR  23.09%  14.36%   2.32%
+2026-10-28 00:22:20,502 transreid.train INFO:     RGB     TIR   6.42%   5.32%   1.23%
+2026-10-28 00:22:20,502 transreid.train INFO:     NIR     RGB  21.03%  14.04%   2.91%
+2026-10-28 00:22:20,502 transreid.train INFO:     NIR     NIR  23.79%  14.85%   2.37%
+2026-10-28 00:22:20,502 transreid.train INFO:     NIR     TIR   6.56%   5.10%   1.21%
+2026-10-28 00:22:20,502 transreid.train INFO:     TIR     RGB   7.07%   5.61%   1.48%
+2026-10-28 00:22:20,502 transreid.train INFO:     TIR     NIR   6.32%   4.99%   1.15%
+2026-10-28 00:22:20,502 transreid.train INFO:     TIR     TIR  17.42%  11.44%   2.18%
+2026-10-28 00:22:20,502 transreid.train INFO: AG-ReID results (Table 4 protocol; all modalities):
+2026-10-28 00:22:34,306 transreid.train INFO:   A->G -> mAP: 9.93%, Rank-1: 25.70%, Rank-10: 52.74%
+2026-10-28 00:22:48,751 transreid.train INFO:   G->A -> mAP: 11.56%, Rank-1: 25.57%, Rank-10: 50.00%
+2026-10-28 00:22:49,329 transreid.train INFO: Detailed modality-platform evaluation (same-camera gallery samples excluded for every query):
+2026-10-28 00:22:49,330 transreid.train INFO:   Category                                  Query->Gallery       Query Gallery ValidQ  Rank-1     mAP    mINP
+2026-10-28 00:22:54,716 transreid.train INFO:   same_modality_same_platform               RGB-G->RGB-G    1685   23422   1510  35.36%  23.94%   5.83%
+2026-10-28 00:22:54,724 transreid.train INFO:   same_modality_same_platform               RGB-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:22:59,877 transreid.train INFO:   same_modality_same_platform               NIR-G->NIR-G    1685   23422   1510  22.65%  15.20%   3.26%
+2026-10-28 00:22:59,886 transreid.train INFO:   same_modality_same_platform               NIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:23:05,630 transreid.train INFO:   same_modality_same_platform               TIR-G->TIR-G    1685   23422   1510  18.41%  12.65%   2.73%
+2026-10-28 00:23:05,639 transreid.train INFO:   same_modality_same_platform               TIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:23:10,553 transreid.train INFO:   modality_only_ground                      RGB-G->NIR-G    1685   23422   1510  23.51%  15.35%   2.97%
+2026-10-28 00:23:16,628 transreid.train INFO:   modality_only_ground                      NIR-G->RGB-G    1685   23422   1510  20.66%  14.96%   3.60%
+2026-10-28 00:23:22,684 transreid.train INFO:   modality_only_ground                      RGB-G->TIR-G    1685   23422   1510   7.15%   6.11%   1.48%
+2026-10-28 00:23:29,918 transreid.train INFO:   modality_only_ground                      TIR-G->RGB-G    1685   23422   1510   7.09%   6.24%   1.92%
+2026-10-28 00:23:36,344 transreid.train INFO:   modality_only_ground                      NIR-G->TIR-G    1685   23422   1510   6.49%   5.47%   1.42%
+2026-10-28 00:23:42,911 transreid.train INFO:   modality_only_ground                      TIR-G->NIR-G    1685   23422   1510   7.48%   5.62%   1.49%
+2026-10-28 00:23:42,925 transreid.train INFO:   modality_only_aerial                      RGB-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:23:42,938 transreid.train INFO:   modality_only_aerial                      NIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:23:42,956 transreid.train INFO:   modality_only_aerial                      RGB-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:23:42,969 transreid.train INFO:   modality_only_aerial                      TIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:23:42,981 transreid.train INFO:   modality_only_aerial                      NIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:23:42,994 transreid.train INFO:   modality_only_aerial                      TIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:23:44,870 transreid.train INFO:   platform_only                             RGB-G->RGB-A    1685    7781    644  37.58%  26.82%   7.88%
+2026-10-28 00:23:46,622 transreid.train INFO:   platform_only                             RGB-A->RGB-G     450   23422    450  36.00%  23.89%   4.45%
+2026-10-28 00:23:48,382 transreid.train INFO:   platform_only                             NIR-G->NIR-A    1685    7781    644  28.57%  21.08%   5.12%
+2026-10-28 00:23:50,148 transreid.train INFO:   platform_only                             NIR-A->NIR-G     450   23422    450  27.33%  16.14%   2.48%
+2026-10-28 00:23:51,912 transreid.train INFO:   platform_only                             TIR-G->TIR-A    1685    7781    644  16.77%  12.08%   3.23%
+2026-10-28 00:23:53,669 transreid.train INFO:   platform_only                             TIR-A->TIR-G     450   23422    450  18.44%  11.73%   2.10%
+2026-10-28 00:23:55,412 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->NIR-A    1685    7781    644  22.83%  18.10%   4.46%
+2026-10-28 00:23:57,211 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->TIR-A    1685    7781    644   4.50%   5.70%   2.12%
+2026-10-28 00:23:59,073 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->RGB-A    1685    7781    644  20.81%  15.83%   4.93%
+2026-10-28 00:24:00,615 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->TIR-A    1685    7781    644   5.59%   6.06%   2.01%
+2026-10-28 00:24:02,149 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->RGB-A    1685    7781    644   6.06%   6.83%   2.50%
+2026-10-28 00:24:03,654 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->NIR-A    1685    7781    644   6.99%   6.29%   2.16%
+2026-10-28 00:24:05,189 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->NIR-G     450   23422    450  20.89%  13.50%   2.32%
+2026-10-28 00:24:06,969 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->TIR-G     450   23422    450   7.11%   5.51%   1.33%
+2026-10-28 00:24:08,766 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->RGB-G     450   23422    450  24.67%  15.45%   3.17%
+2026-10-28 00:24:10,652 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->TIR-G     450   23422    450   8.22%   5.45%   1.26%
+2026-10-28 00:24:12,485 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->RGB-G     450   23422    450   8.22%   5.76%   1.58%
+2026-10-28 00:24:14,276 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->NIR-G     450   23422    450   4.00%   4.55%   1.23%
+2026-10-28 00:24:14,277 transreid.train INFO: => Detailed protocol CSV saved to ./logs/UAD_V2/local_domains_epoch_50.csv
+2026-10-28 00:24:14,338 transreid.train INFO: Validation Results - Epoch: 50, local
+2026-10-28 00:24:14,338 transreid.train INFO: mAP: 9.61%, mINP: 0.79%
+2026-10-28 00:24:14,338 transreid.train INFO: CMC curve, Rank-1 : 24.23%
+2026-10-28 00:24:14,338 transreid.train INFO: CMC curve, Rank-5 : 41.70%
+2026-10-28 00:24:14,338 transreid.train INFO: CMC curve, Rank-10: 50.71%
+2026-10-28 00:24:14,537 transreid.train INFO: => Split mode 1: query 2135, total query 2135
+2026-10-28 00:24:19,404 transreid.train INFO: The test feature is normalized
+2026-10-28 00:24:19,548 transreid.train INFO: => Computing DistMat in q-chunks (chunk=4000)
+2026-10-28 00:25:55,749 transreid.train INFO: Starting modality-pair specific evaluation. Query mods: [1, 2, 3], Gallery mods: [1, 2, 3]
+2026-10-28 00:26:06,837 transreid.train INFO:   Pair (Q:1, G:1) -> Rank-1: 41.83%, mAP: 26.57%, mINP: 5.18%
+2026-10-28 00:26:16,218 transreid.train INFO:   Pair (Q:1, G:2) -> Rank-1: 27.03%, mAP: 16.26%, mINP: 2.40%
+2026-10-28 00:26:26,064 transreid.train INFO:   Pair (Q:1, G:3) -> Rank-1: 7.26%, mAP: 5.75%, mINP: 1.19%
+2026-10-28 00:26:36,466 transreid.train INFO:   Pair (Q:2, G:1) -> Rank-1: 24.07%, mAP: 15.83%, mINP: 3.00%
+2026-10-28 00:26:48,238 transreid.train INFO:   Pair (Q:2, G:2) -> Rank-1: 28.29%, mAP: 17.01%, mINP: 2.54%
+2026-10-28 00:26:58,864 transreid.train INFO:   Pair (Q:2, G:3) -> Rank-1: 6.23%, mAP: 5.38%, mINP: 1.14%
+2026-10-28 00:27:08,268 transreid.train INFO:   Pair (Q:3, G:1) -> Rank-1: 7.49%, mAP: 5.98%, mINP: 1.42%
+2026-10-28 00:27:17,362 transreid.train INFO:   Pair (Q:3, G:2) -> Rank-1: 7.54%, mAP: 5.35%, mINP: 1.09%
+2026-10-28 00:27:26,790 transreid.train INFO:   Pair (Q:3, G:3) -> Rank-1: 20.56%, mAP: 13.53%, mINP: 2.39%
+2026-10-28 00:27:26,790 transreid.train INFO: VI-ReID results (Table 5 protocol):
+2026-10-28 00:27:26,791 transreid.train INFO:   Setting   Rank-1     mAP    mINP
+2026-10-28 00:27:26,791 transreid.train INFO:   NIR->RGB    24.07%  15.83%   3.00%
+2026-10-28 00:27:26,791 transreid.train INFO:   TIR->RGB     7.49%   5.98%   1.42%
+2026-10-28 00:27:26,791 transreid.train INFO: Modality-pair results (Table 6 protocol):
+2026-10-28 00:27:26,791 transreid.train INFO:   Query Gallery  Rank-1     mAP    mINP
+2026-10-28 00:27:26,791 transreid.train INFO:     RGB     RGB  41.83%  26.57%   5.18%
+2026-10-28 00:27:26,791 transreid.train INFO:     RGB     NIR  27.03%  16.26%   2.40%
+2026-10-28 00:27:26,791 transreid.train INFO:     RGB     TIR   7.26%   5.75%   1.19%
+2026-10-28 00:27:26,791 transreid.train INFO:     NIR     RGB  24.07%  15.83%   3.00%
+2026-10-28 00:27:26,791 transreid.train INFO:     NIR     NIR  28.29%  17.01%   2.54%
+2026-10-28 00:27:26,791 transreid.train INFO:     NIR     TIR   6.23%   5.38%   1.14%
+2026-10-28 00:27:26,791 transreid.train INFO:     TIR     RGB   7.49%   5.98%   1.42%
+2026-10-28 00:27:26,792 transreid.train INFO:     TIR     NIR   7.54%   5.35%   1.09%
+2026-10-28 00:27:26,792 transreid.train INFO:     TIR     TIR  20.56%  13.53%   2.39%
+2026-10-28 00:27:26,793 transreid.train INFO: AG-ReID results (Table 4 protocol; all modalities):
+2026-10-28 00:27:43,739 transreid.train INFO:   A->G -> mAP: 11.51%, Rank-1: 31.26%, Rank-10: 58.15%
+2026-10-28 00:28:01,191 transreid.train INFO:   G->A -> mAP: 13.33%, Rank-1: 30.43%, Rank-10: 54.40%
+2026-10-28 00:28:01,822 transreid.train INFO: Detailed modality-platform evaluation (same-camera gallery samples excluded for every query):
+2026-10-28 00:28:01,822 transreid.train INFO:   Category                                  Query->Gallery       Query Gallery ValidQ  Rank-1     mAP    mINP
+2026-10-28 00:28:08,448 transreid.train INFO:   same_modality_same_platform               RGB-G->RGB-G    1685   23422   1510  41.72%  28.20%   6.72%
+2026-10-28 00:28:08,457 transreid.train INFO:   same_modality_same_platform               RGB-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:28:14,598 transreid.train INFO:   same_modality_same_platform               NIR-G->NIR-G    1685   23422   1510  25.83%  17.29%   3.58%
+2026-10-28 00:28:14,606 transreid.train INFO:   same_modality_same_platform               NIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:28:20,302 transreid.train INFO:   same_modality_same_platform               TIR-G->TIR-G    1685   23422   1510  21.46%  14.75%   2.97%
+2026-10-28 00:28:20,311 transreid.train INFO:   same_modality_same_platform               TIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:28:27,027 transreid.train INFO:   modality_only_ground                      RGB-G->NIR-G    1685   23422   1510  27.28%  17.44%   3.15%
+2026-10-28 00:28:33,735 transreid.train INFO:   modality_only_ground                      NIR-G->RGB-G    1685   23422   1510  24.64%  17.05%   3.74%
+2026-10-28 00:28:39,854 transreid.train INFO:   modality_only_ground                      RGB-G->TIR-G    1685   23422   1510   8.01%   6.58%   1.50%
+2026-10-28 00:28:46,513 transreid.train INFO:   modality_only_ground                      TIR-G->RGB-G    1685   23422   1510   8.01%   6.75%   1.84%
+2026-10-28 00:28:51,622 transreid.train INFO:   modality_only_ground                      NIR-G->TIR-G    1685   23422   1510   6.03%   5.66%   1.36%
+2026-10-28 00:28:58,255 transreid.train INFO:   modality_only_ground                      TIR-G->NIR-G    1685   23422   1510   8.15%   5.99%   1.42%
+2026-10-28 00:28:58,267 transreid.train INFO:   modality_only_aerial                      RGB-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:28:58,279 transreid.train INFO:   modality_only_aerial                      NIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:28:58,292 transreid.train INFO:   modality_only_aerial                      RGB-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:28:58,304 transreid.train INFO:   modality_only_aerial                      TIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:28:58,318 transreid.train INFO:   modality_only_aerial                      NIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:28:58,330 transreid.train INFO:   modality_only_aerial                      TIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 00:29:00,284 transreid.train INFO:   platform_only                             RGB-G->RGB-A    1685    7781    644  42.39%  31.07%  10.52%
+2026-10-28 00:29:02,287 transreid.train INFO:   platform_only                             RGB-A->RGB-G     450   23422    450  42.00%  27.94%   5.47%
+2026-10-28 00:29:03,976 transreid.train INFO:   platform_only                             NIR-G->NIR-A    1685    7781    644  34.63%  23.92%   5.64%
+2026-10-28 00:29:05,992 transreid.train INFO:   platform_only                             NIR-A->NIR-G     450   23422    450  33.78%  19.28%   2.77%
+2026-10-28 00:29:07,935 transreid.train INFO:   platform_only                             TIR-G->TIR-A    1685    7781    644  20.34%  14.97%   4.06%
+2026-10-28 00:29:09,957 transreid.train INFO:   platform_only                             TIR-A->TIR-G     450   23422    450  21.33%  13.83%   2.24%
+2026-10-28 00:29:11,913 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->NIR-A    1685    7781    644  27.48%  20.60%   5.14%
+2026-10-28 00:29:13,793 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->TIR-A    1685    7781    644   6.37%   6.35%   2.34%
+2026-10-28 00:29:15,299 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->RGB-A    1685    7781    644  20.50%  16.58%   5.16%
+2026-10-28 00:29:16,787 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->TIR-A    1685    7781    644   6.06%   6.76%   2.14%
+2026-10-28 00:29:18,251 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->RGB-A    1685    7781    644   8.23%   7.34%   2.55%
+2026-10-28 00:29:20,172 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->NIR-A    1685    7781    644   7.61%   6.90%   2.18%
+2026-10-28 00:29:21,913 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->NIR-G     450   23422    450  25.33%  14.79%   2.12%
+2026-10-28 00:29:23,953 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->TIR-G     450   23422    450   8.00%   6.13%   1.27%
+2026-10-28 00:29:25,685 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->RGB-G     450   23422    450  28.22%  17.53%   3.25%
+2026-10-28 00:29:27,699 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->TIR-G     450   23422    450   7.33%   5.98%   1.26%
+2026-10-28 00:29:29,329 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->RGB-G     450   23422    450   8.00%   5.85%   1.43%
+2026-10-28 00:29:31,325 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->NIR-G     450   23422    450   5.56%   4.82%   1.12%
+2026-10-28 00:29:31,326 transreid.train INFO: => Detailed protocol CSV saved to ./logs/UAD_V2/fusion_domains_epoch_50.csv
+2026-10-28 00:29:31,342 transreid.train INFO: Validation Results - Epoch: 50, fusion
+2026-10-28 00:29:31,342 transreid.train INFO: mAP: 11.11%, mINP: 0.73%
+2026-10-28 00:29:31,342 transreid.train INFO: CMC curve, Rank-1 : 29.48%
+2026-10-28 00:29:31,342 transreid.train INFO: CMC curve, Rank-5 : 46.49%
+2026-10-28 00:29:31,342 transreid.train INFO: CMC curve, Rank-10: 54.64%
+2026-10-28 00:31:50,457 transreid.train INFO: Epoch[51] Iteration[100/114] Loss: 0.606, Acc: 0.979, Base Lr: 4.51e-04
+2026-10-28 00:31:50,457 transreid.train INFO: Epoch[51] 0.101, 0.111, 0.195, 0.084
+2026-10-28 00:31:50,457 transreid.train INFO: V2 losses: SpecificWRT=0.0988 LocalCE=0.3869 LocalCM=1.0939 FusionWRT=0.4959 Balance=1.0098; CM valid={'0->1': (tensor(62, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(62, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(63, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:32:09,839 transreid.train INFO: Epoch 51 done. Time per batch: 1.390[s] Total: 158.5[s]
+2026-10-28 00:34:28,326 transreid.train INFO: Epoch[52] Iteration[100/114] Loss: 0.592, Acc: 0.980, Base Lr: 3.61e-04
+2026-10-28 00:34:28,327 transreid.train INFO: Epoch[52] 0.095, 0.109, 0.194, 0.080
+2026-10-28 00:34:28,327 transreid.train INFO: V2 losses: SpecificWRT=0.1394 LocalCE=0.4661 LocalCM=1.1962 FusionWRT=0.4898 Balance=1.0051; CM valid={'0->1': (tensor(53, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(51, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(49, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(56, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:34:47,505 transreid.train INFO: Epoch 52 done. Time per batch: 1.383[s] Total: 157.7[s]
+2026-10-28 00:37:05,610 transreid.train INFO: Epoch[53] Iteration[100/115] Loss: 0.595, Acc: 0.980, Base Lr: 2.81e-04
+2026-10-28 00:37:05,610 transreid.train INFO: Epoch[53] 0.097, 0.110, 0.195, 0.080
+2026-10-28 00:37:05,611 transreid.train INFO: V2 losses: SpecificWRT=0.1360 LocalCE=0.3811 LocalCM=1.1430 FusionWRT=0.4890 Balance=1.0105; CM valid={'0->1': (tensor(62, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(55, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(63, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:37:26,316 transreid.train INFO: Epoch 53 done. Time per batch: 1.381[s] Total: 158.8[s]
+2026-10-28 00:39:45,171 transreid.train INFO: Epoch[54] Iteration[100/115] Loss: 0.603, Acc: 0.979, Base Lr: 2.11e-04
+2026-10-28 00:39:45,172 transreid.train INFO: Epoch[54] 0.103, 0.110, 0.195, 0.082
+2026-10-28 00:39:45,172 transreid.train INFO: V2 losses: SpecificWRT=0.0951 LocalCE=0.3145 LocalCM=1.1082 FusionWRT=0.4840 Balance=1.0105; CM valid={'0->1': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(62, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(62, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(62, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:40:05,895 transreid.train INFO: Epoch 54 done. Time per batch: 1.388[s] Total: 159.6[s]
+2026-10-28 00:42:24,012 transreid.train INFO: Epoch[55] Iteration[100/114] Loss: 0.592, Acc: 0.980, Base Lr: 1.52e-04
+2026-10-28 00:42:24,013 transreid.train INFO: Epoch[55] 0.097, 0.109, 0.195, 0.078
+2026-10-28 00:42:24,013 transreid.train INFO: V2 losses: SpecificWRT=0.1021 LocalCE=0.4412 LocalCM=1.0909 FusionWRT=0.4838 Balance=1.0030; CM valid={'0->1': (tensor(50, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(56, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(51, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:42:43,351 transreid.train INFO: Epoch 55 done. Time per batch: 1.381[s] Total: 157.5[s]
+2026-10-28 00:45:02,582 transreid.train INFO: Epoch[56] Iteration[100/114] Loss: 0.598, Acc: 0.982, Base Lr: 1.03e-04
+2026-10-28 00:45:02,583 transreid.train INFO: Epoch[56] 0.098, 0.111, 0.195, 0.082
+2026-10-28 00:45:02,583 transreid.train INFO: V2 losses: SpecificWRT=0.1063 LocalCE=0.3404 LocalCM=1.0480 FusionWRT=0.4932 Balance=1.0110; CM valid={'0->1': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:45:22,178 transreid.train INFO: Epoch 56 done. Time per batch: 1.393[s] Total: 158.8[s]
+2026-10-28 00:47:41,221 transreid.train INFO: Epoch[57] Iteration[100/114] Loss: 0.603, Acc: 0.979, Base Lr: 6.51e-05
+2026-10-28 00:47:41,222 transreid.train INFO: Epoch[57] 0.102, 0.112, 0.195, 0.080
+2026-10-28 00:47:41,222 transreid.train INFO: V2 losses: SpecificWRT=0.1002 LocalCE=0.3438 LocalCM=1.1089 FusionWRT=0.4906 Balance=1.0094; CM valid={'0->1': (tensor(62, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(62, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(58, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:48:00,656 transreid.train INFO: Epoch 57 done. Time per batch: 1.390[s] Total: 158.5[s]
+2026-10-28 00:50:19,008 transreid.train INFO: Epoch[58] Iteration[100/114] Loss: 0.610, Acc: 0.978, Base Lr: 3.79e-05
+2026-10-28 00:50:19,008 transreid.train INFO: Epoch[58] 0.105, 0.112, 0.196, 0.084
+2026-10-28 00:50:19,009 transreid.train INFO: V2 losses: SpecificWRT=0.0989 LocalCE=0.4664 LocalCM=1.0553 FusionWRT=0.4935 Balance=1.0049; CM valid={'0->1': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(56, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(56, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:50:38,455 transreid.train INFO: Epoch 58 done. Time per batch: 1.384[s] Total: 157.8[s]
+2026-10-28 00:52:56,569 transreid.train INFO: Epoch[59] Iteration[100/114] Loss: 0.591, Acc: 0.979, Base Lr: 2.15e-05
+2026-10-28 00:52:56,569 transreid.train INFO: Epoch[59] 0.099, 0.108, 0.194, 0.078
+2026-10-28 00:52:56,570 transreid.train INFO: V2 losses: SpecificWRT=0.1322 LocalCE=0.4471 LocalCM=1.0710 FusionWRT=0.4940 Balance=1.0055; CM valid={'0->1': (tensor(56, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(64, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(57, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:53:15,869 transreid.train INFO: Epoch 59 done. Time per batch: 1.381[s] Total: 157.4[s]
+2026-10-28 00:55:34,809 transreid.train INFO: Epoch[60] Iteration[100/114] Loss: 0.598, Acc: 0.979, Base Lr: 1.60e-06
+2026-10-28 00:55:34,810 transreid.train INFO: Epoch[60] 0.101, 0.109, 0.195, 0.081
+2026-10-28 00:55:34,810 transreid.train INFO: V2 losses: SpecificWRT=0.1388 LocalCE=0.3149 LocalCM=1.0933 FusionWRT=0.4922 Balance=1.0087; CM valid={'0->1': (tensor(59, device='cuda:0'), tensor(64, device='cuda:0')), '0->2': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '1->0': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '1->2': (tensor(61, device='cuda:0'), tensor(64, device='cuda:0')), '2->0': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0')), '2->1': (tensor(60, device='cuda:0'), tensor(64, device='cuda:0'))}
+2026-10-28 00:55:54,313 transreid.train INFO: Epoch 60 done. Time per batch: 1.390[s] Total: 158.4[s]
+2026-10-28 00:58:28,980 transreid.train INFO: => Split mode 1: query 2135, total query 2135
+2026-10-28 00:58:31,056 transreid.train INFO: The test feature is normalized
+2026-10-28 00:58:31,114 transreid.train INFO: => Computing DistMat in q-chunks (chunk=4000)
+2026-10-28 01:00:01,415 transreid.train INFO: Starting modality-pair specific evaluation. Query mods: [1, 2, 3], Gallery mods: [1, 2, 3]
+2026-10-28 01:00:10,548 transreid.train INFO:   Pair (Q:1, G:1) -> Rank-1: 42.48%, mAP: 26.69%, mINP: 5.14%
+2026-10-28 01:00:19,322 transreid.train INFO:   Pair (Q:1, G:2) -> Rank-1: 27.31%, mAP: 16.17%, mINP: 2.29%
+2026-10-28 01:00:30,472 transreid.train INFO:   Pair (Q:1, G:3) -> Rank-1: 7.26%, mAP: 5.68%, mINP: 1.11%
+2026-10-28 01:00:41,237 transreid.train INFO:   Pair (Q:2, G:1) -> Rank-1: 25.01%, mAP: 15.76%, mINP: 2.86%
+2026-10-28 01:00:51,488 transreid.train INFO:   Pair (Q:2, G:2) -> Rank-1: 28.15%, mAP: 16.98%, mINP: 2.45%
+2026-10-28 01:01:00,954 transreid.train INFO:   Pair (Q:2, G:3) -> Rank-1: 6.46%, mAP: 5.29%, mINP: 1.05%
+2026-10-28 01:01:10,441 transreid.train INFO:   Pair (Q:3, G:1) -> Rank-1: 7.54%, mAP: 5.89%, mINP: 1.31%
+2026-10-28 01:01:19,270 transreid.train INFO:   Pair (Q:3, G:2) -> Rank-1: 7.82%, mAP: 5.26%, mINP: 1.01%
+2026-10-28 01:01:28,485 transreid.train INFO:   Pair (Q:3, G:3) -> Rank-1: 20.98%, mAP: 13.61%, mINP: 2.31%
+2026-10-28 01:01:28,486 transreid.train INFO: VI-ReID results (Table 5 protocol):
+2026-10-28 01:01:28,486 transreid.train INFO:   Setting   Rank-1     mAP    mINP
+2026-10-28 01:01:28,486 transreid.train INFO:   NIR->RGB    25.01%  15.76%   2.86%
+2026-10-28 01:01:28,486 transreid.train INFO:   TIR->RGB     7.54%   5.89%   1.31%
+2026-10-28 01:01:28,486 transreid.train INFO: Modality-pair results (Table 6 protocol):
+2026-10-28 01:01:28,486 transreid.train INFO:   Query Gallery  Rank-1     mAP    mINP
+2026-10-28 01:01:28,486 transreid.train INFO:     RGB     RGB  42.48%  26.69%   5.14%
+2026-10-28 01:01:28,486 transreid.train INFO:     RGB     NIR  27.31%  16.17%   2.29%
+2026-10-28 01:01:28,486 transreid.train INFO:     RGB     TIR   7.26%   5.68%   1.11%
+2026-10-28 01:01:28,486 transreid.train INFO:     NIR     RGB  25.01%  15.76%   2.86%
+2026-10-28 01:01:28,486 transreid.train INFO:     NIR     NIR  28.15%  16.98%   2.45%
+2026-10-28 01:01:28,486 transreid.train INFO:     NIR     TIR   6.46%   5.29%   1.05%
+2026-10-28 01:01:28,486 transreid.train INFO:     TIR     RGB   7.54%   5.89%   1.31%
+2026-10-28 01:01:28,486 transreid.train INFO:     TIR     NIR   7.82%   5.26%   1.01%
+2026-10-28 01:01:28,486 transreid.train INFO:     TIR     TIR  20.98%  13.61%   2.31%
+2026-10-28 01:01:28,487 transreid.train INFO: AG-ReID results (Table 4 protocol; all modalities):
+2026-10-28 01:01:41,523 transreid.train INFO:   A->G -> mAP: 11.54%, Rank-1: 31.78%, Rank-10: 59.04%
+2026-10-28 01:01:56,297 transreid.train INFO:   G->A -> mAP: 13.38%, Rank-1: 30.69%, Rank-10: 54.61%
+2026-10-28 01:01:57,000 transreid.train INFO: Detailed modality-platform evaluation (same-camera gallery samples excluded for every query):
+2026-10-28 01:01:57,001 transreid.train INFO:   Category                                  Query->Gallery       Query Gallery ValidQ  Rank-1     mAP    mINP
+2026-10-28 01:02:01,989 transreid.train INFO:   same_modality_same_platform               RGB-G->RGB-G    1685   23422   1510  42.52%  28.46%   6.67%
+2026-10-28 01:02:01,998 transreid.train INFO:   same_modality_same_platform               RGB-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:02:08,407 transreid.train INFO:   same_modality_same_platform               NIR-G->NIR-G    1685   23422   1510  25.63%  17.25%   3.49%
+2026-10-28 01:02:08,426 transreid.train INFO:   same_modality_same_platform               NIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:02:13,779 transreid.train INFO:   same_modality_same_platform               TIR-G->TIR-G    1685   23422   1510  22.05%  14.87%   2.89%
+2026-10-28 01:02:13,788 transreid.train INFO:   same_modality_same_platform               TIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:02:19,335 transreid.train INFO:   modality_only_ground                      RGB-G->NIR-G    1685   23422   1510  28.08%  17.46%   3.06%
+2026-10-28 01:02:25,056 transreid.train INFO:   modality_only_ground                      NIR-G->RGB-G    1685   23422   1510  25.43%  17.03%   3.60%
+2026-10-28 01:02:30,521 transreid.train INFO:   modality_only_ground                      RGB-G->TIR-G    1685   23422   1510   8.15%   6.51%   1.43%
+2026-10-28 01:02:36,070 transreid.train INFO:   modality_only_ground                      TIR-G->RGB-G    1685   23422   1510   7.88%   6.69%   1.71%
+2026-10-28 01:02:41,514 transreid.train INFO:   modality_only_ground                      NIR-G->TIR-G    1685   23422   1510   6.16%   5.55%   1.27%
+2026-10-28 01:02:46,993 transreid.train INFO:   modality_only_ground                      TIR-G->NIR-G    1685   23422   1510   8.61%   5.90%   1.35%
+2026-10-28 01:02:47,003 transreid.train INFO:   modality_only_aerial                      RGB-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:02:47,012 transreid.train INFO:   modality_only_aerial                      NIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:02:47,021 transreid.train INFO:   modality_only_aerial                      RGB-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:02:47,029 transreid.train INFO:   modality_only_aerial                      TIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:02:47,038 transreid.train INFO:   modality_only_aerial                      NIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:02:47,046 transreid.train INFO:   modality_only_aerial                      TIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:02:48,504 transreid.train INFO:   platform_only                             RGB-G->RGB-A    1685    7781    644  43.32%  31.24%  10.67%
+2026-10-28 01:02:50,035 transreid.train INFO:   platform_only                             RGB-A->RGB-G     450   23422    450  42.22%  28.03%   5.42%
+2026-10-28 01:02:51,628 transreid.train INFO:   platform_only                             NIR-G->NIR-A    1685    7781    644  34.63%  24.10%   5.49%
+2026-10-28 01:02:53,107 transreid.train INFO:   platform_only                             NIR-A->NIR-G     450   23422    450  34.44%  19.50%   2.70%
+2026-10-28 01:02:54,624 transreid.train INFO:   platform_only                             TIR-G->TIR-A    1685    7781    644  19.57%  15.31%   4.15%
+2026-10-28 01:02:56,038 transreid.train INFO:   platform_only                             TIR-A->TIR-G     450   23422    450  22.44%  13.94%   2.14%
+2026-10-28 01:02:57,534 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->NIR-A    1685    7781    644  27.95%  20.67%   5.13%
+2026-10-28 01:02:59,130 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->TIR-A    1685    7781    644   6.21%   6.36%   2.33%
+2026-10-28 01:03:00,510 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->RGB-A    1685    7781    644  21.12%  16.33%   5.00%
+2026-10-28 01:03:02,302 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->TIR-A    1685    7781    644   6.52%   6.77%   2.10%
+2026-10-28 01:03:03,750 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->RGB-A    1685    7781    644   7.76%   7.23%   2.49%
+2026-10-28 01:03:05,127 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->NIR-A    1685    7781    644   8.39%   6.89%   2.09%
+2026-10-28 01:03:06,711 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->NIR-G     450   23422    450  24.67%  14.56%   1.97%
+2026-10-28 01:03:08,123 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->TIR-G     450   23422    450   7.78%   6.11%   1.18%
+2026-10-28 01:03:09,535 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->RGB-G     450   23422    450  29.11%  17.55%   3.09%
+2026-10-28 01:03:11,181 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->TIR-G     450   23422    450   7.78%   5.93%   1.20%
+2026-10-28 01:03:12,777 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->RGB-G     450   23422    450   8.22%   5.70%   1.30%
+2026-10-28 01:03:14,414 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->NIR-G     450   23422    450   5.33%   4.72%   1.03%
+2026-10-28 01:03:14,415 transreid.train INFO: => Detailed protocol CSV saved to ./logs/UAD_V2/global_domains_epoch_60.csv
+2026-10-28 01:03:14,429 transreid.train INFO: Validation Results - Epoch: 60, global
+2026-10-28 01:03:14,429 transreid.train INFO: mAP: 11.10%, mINP: 0.67%
+2026-10-28 01:03:14,429 transreid.train INFO: CMC curve, Rank-1 : 29.84%
+2026-10-28 01:03:14,429 transreid.train INFO: CMC curve, Rank-5 : 46.56%
+2026-10-28 01:03:14,429 transreid.train INFO: CMC curve, Rank-10: 55.02%
+2026-10-28 01:03:14,574 transreid.train INFO: => Split mode 1: query 2135, total query 2135
+2026-10-28 01:03:15,721 transreid.train INFO: The test feature is normalized
+2026-10-28 01:03:15,802 transreid.train INFO: => Computing DistMat in q-chunks (chunk=4000)
+2026-10-28 01:04:43,999 transreid.train INFO: Starting modality-pair specific evaluation. Query mods: [1, 2, 3], Gallery mods: [1, 2, 3]
+2026-10-28 01:04:53,206 transreid.train INFO:   Pair (Q:1, G:1) -> Rank-1: 35.83%, mAP: 22.55%, mINP: 4.22%
+2026-10-28 01:05:02,068 transreid.train INFO:   Pair (Q:1, G:2) -> Rank-1: 23.14%, mAP: 14.39%, mINP: 2.32%
+2026-10-28 01:05:11,775 transreid.train INFO:   Pair (Q:1, G:3) -> Rank-1: 6.56%, mAP: 5.35%, mINP: 1.23%
+2026-10-28 01:05:20,629 transreid.train INFO:   Pair (Q:2, G:1) -> Rank-1: 20.75%, mAP: 14.04%, mINP: 2.91%
+2026-10-28 01:05:29,503 transreid.train INFO:   Pair (Q:2, G:2) -> Rank-1: 23.93%, mAP: 14.85%, mINP: 2.36%
+2026-10-28 01:05:38,853 transreid.train INFO:   Pair (Q:2, G:3) -> Rank-1: 6.65%, mAP: 5.11%, mINP: 1.21%
+2026-10-28 01:05:48,346 transreid.train INFO:   Pair (Q:3, G:1) -> Rank-1: 7.03%, mAP: 5.60%, mINP: 1.48%
+2026-10-28 01:05:57,420 transreid.train INFO:   Pair (Q:3, G:2) -> Rank-1: 6.51%, mAP: 5.00%, mINP: 1.16%
+2026-10-28 01:06:06,162 transreid.train INFO:   Pair (Q:3, G:3) -> Rank-1: 17.47%, mAP: 11.43%, mINP: 2.18%
+2026-10-28 01:06:06,162 transreid.train INFO: VI-ReID results (Table 5 protocol):
+2026-10-28 01:06:06,162 transreid.train INFO:   Setting   Rank-1     mAP    mINP
+2026-10-28 01:06:06,162 transreid.train INFO:   NIR->RGB    20.75%  14.04%   2.91%
+2026-10-28 01:06:06,163 transreid.train INFO:   TIR->RGB     7.03%   5.60%   1.48%
+2026-10-28 01:06:06,163 transreid.train INFO: Modality-pair results (Table 6 protocol):
+2026-10-28 01:06:06,163 transreid.train INFO:   Query Gallery  Rank-1     mAP    mINP
+2026-10-28 01:06:06,163 transreid.train INFO:     RGB     RGB  35.83%  22.55%   4.22%
+2026-10-28 01:06:06,163 transreid.train INFO:     RGB     NIR  23.14%  14.39%   2.32%
+2026-10-28 01:06:06,163 transreid.train INFO:     RGB     TIR   6.56%   5.35%   1.23%
+2026-10-28 01:06:06,163 transreid.train INFO:     NIR     RGB  20.75%  14.04%   2.91%
+2026-10-28 01:06:06,163 transreid.train INFO:     NIR     NIR  23.93%  14.85%   2.36%
+2026-10-28 01:06:06,163 transreid.train INFO:     NIR     TIR   6.65%   5.11%   1.21%
+2026-10-28 01:06:06,163 transreid.train INFO:     TIR     RGB   7.03%   5.60%   1.48%
+2026-10-28 01:06:06,163 transreid.train INFO:     TIR     NIR   6.51%   5.00%   1.16%
+2026-10-28 01:06:06,163 transreid.train INFO:     TIR     TIR  17.47%  11.43%   2.18%
+2026-10-28 01:06:06,164 transreid.train INFO: AG-ReID results (Table 4 protocol; all modalities):
+2026-10-28 01:06:20,113 transreid.train INFO:   A->G -> mAP: 9.93%, Rank-1: 25.70%, Rank-10: 52.74%
+2026-10-28 01:06:34,387 transreid.train INFO:   G->A -> mAP: 11.57%, Rank-1: 25.67%, Rank-10: 50.21%
+2026-10-28 01:06:35,067 transreid.train INFO: Detailed modality-platform evaluation (same-camera gallery samples excluded for every query):
+2026-10-28 01:06:35,067 transreid.train INFO:   Category                                  Query->Gallery       Query Gallery ValidQ  Rank-1     mAP    mINP
+2026-10-28 01:06:40,415 transreid.train INFO:   same_modality_same_platform               RGB-G->RGB-G    1685   23422   1510  35.50%  23.93%   5.81%
+2026-10-28 01:06:40,427 transreid.train INFO:   same_modality_same_platform               RGB-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:06:45,970 transreid.train INFO:   same_modality_same_platform               NIR-G->NIR-G    1685   23422   1510  22.58%  15.17%   3.22%
+2026-10-28 01:06:45,980 transreid.train INFO:   same_modality_same_platform               NIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:06:52,843 transreid.train INFO:   same_modality_same_platform               TIR-G->TIR-G    1685   23422   1510  18.48%  12.66%   2.74%
+2026-10-28 01:06:52,862 transreid.train INFO:   same_modality_same_platform               TIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:06:59,133 transreid.train INFO:   modality_only_ground                      RGB-G->NIR-G    1685   23422   1510  23.71%  15.39%   2.97%
+2026-10-28 01:07:05,098 transreid.train INFO:   modality_only_ground                      NIR-G->RGB-G    1685   23422   1510  20.26%  14.96%   3.61%
+2026-10-28 01:07:10,300 transreid.train INFO:   modality_only_ground                      RGB-G->TIR-G    1685   23422   1510   7.28%   6.14%   1.48%
+2026-10-28 01:07:15,376 transreid.train INFO:   modality_only_ground                      TIR-G->RGB-G    1685   23422   1510   7.15%   6.25%   1.93%
+2026-10-28 01:07:21,339 transreid.train INFO:   modality_only_ground                      NIR-G->TIR-G    1685   23422   1510   6.49%   5.47%   1.42%
+2026-10-28 01:07:26,220 transreid.train INFO:   modality_only_ground                      TIR-G->NIR-G    1685   23422   1510   7.55%   5.63%   1.49%
+2026-10-28 01:07:26,229 transreid.train INFO:   modality_only_aerial                      RGB-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:07:26,242 transreid.train INFO:   modality_only_aerial                      NIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:07:26,252 transreid.train INFO:   modality_only_aerial                      RGB-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:07:26,260 transreid.train INFO:   modality_only_aerial                      TIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:07:26,270 transreid.train INFO:   modality_only_aerial                      NIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:07:26,278 transreid.train INFO:   modality_only_aerial                      TIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:07:27,880 transreid.train INFO:   platform_only                             RGB-G->RGB-A    1685    7781    644  38.66%  26.84%   7.90%
+2026-10-28 01:07:29,243 transreid.train INFO:   platform_only                             RGB-A->RGB-G     450   23422    450  36.22%  23.89%   4.46%
+2026-10-28 01:07:30,821 transreid.train INFO:   platform_only                             NIR-G->NIR-A    1685    7781    644  28.88%  21.08%   5.14%
+2026-10-28 01:07:32,213 transreid.train INFO:   platform_only                             NIR-A->NIR-G     450   23422    450  28.00%  16.15%   2.48%
+2026-10-28 01:07:33,677 transreid.train INFO:   platform_only                             TIR-G->TIR-A    1685    7781    644  16.93%  12.08%   3.23%
+2026-10-28 01:07:35,149 transreid.train INFO:   platform_only                             TIR-A->TIR-G     450   23422    450  18.22%  11.71%   2.10%
+2026-10-28 01:07:36,853 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->NIR-A    1685    7781    644  22.52%  18.09%   4.47%
+2026-10-28 01:07:38,402 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->TIR-A    1685    7781    644   4.81%   5.70%   2.12%
+2026-10-28 01:07:40,013 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->RGB-A    1685    7781    644  20.96%  15.82%   4.94%
+2026-10-28 01:07:41,443 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->TIR-A    1685    7781    644   5.75%   6.08%   2.02%
+2026-10-28 01:07:43,244 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->RGB-A    1685    7781    644   6.06%   6.85%   2.51%
+2026-10-28 01:07:45,049 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->NIR-A    1685    7781    644   7.14%   6.30%   2.16%
+2026-10-28 01:07:46,436 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->NIR-G     450   23422    450  21.11%  13.48%   2.32%
+2026-10-28 01:07:48,161 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->TIR-G     450   23422    450   7.11%   5.51%   1.33%
+2026-10-28 01:07:49,558 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->RGB-G     450   23422    450  23.56%  15.40%   3.17%
+2026-10-28 01:07:50,892 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->TIR-G     450   23422    450   8.44%   5.46%   1.27%
+2026-10-28 01:07:52,349 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->RGB-G     450   23422    450   8.00%   5.74%   1.58%
+2026-10-28 01:07:53,862 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->NIR-G     450   23422    450   4.44%   4.57%   1.24%
+2026-10-28 01:07:53,863 transreid.train INFO: => Detailed protocol CSV saved to ./logs/UAD_V2/local_domains_epoch_60.csv
+2026-10-28 01:07:53,875 transreid.train INFO: Validation Results - Epoch: 60, local
+2026-10-28 01:07:53,875 transreid.train INFO: mAP: 9.62%, mINP: 0.79%
+2026-10-28 01:07:53,875 transreid.train INFO: CMC curve, Rank-1 : 24.34%
+2026-10-28 01:07:53,875 transreid.train INFO: CMC curve, Rank-5 : 41.69%
+2026-10-28 01:07:53,875 transreid.train INFO: CMC curve, Rank-10: 50.66%
+2026-10-28 01:07:54,044 transreid.train INFO: => Split mode 1: query 2135, total query 2135
+2026-10-28 01:07:57,631 transreid.train INFO: The test feature is normalized
+2026-10-28 01:07:57,720 transreid.train INFO: => Computing DistMat in q-chunks (chunk=4000)
+2026-10-28 01:09:33,186 transreid.train INFO: Starting modality-pair specific evaluation. Query mods: [1, 2, 3], Gallery mods: [1, 2, 3]
+2026-10-28 01:09:43,124 transreid.train INFO:   Pair (Q:1, G:1) -> Rank-1: 41.83%, mAP: 26.57%, mINP: 5.18%
+2026-10-28 01:09:52,648 transreid.train INFO:   Pair (Q:1, G:2) -> Rank-1: 26.98%, mAP: 16.26%, mINP: 2.40%
+2026-10-28 01:10:02,317 transreid.train INFO:   Pair (Q:1, G:3) -> Rank-1: 7.12%, mAP: 5.75%, mINP: 1.19%
+2026-10-28 01:10:11,555 transreid.train INFO:   Pair (Q:2, G:1) -> Rank-1: 23.89%, mAP: 15.83%, mINP: 2.99%
+2026-10-28 01:10:20,317 transreid.train INFO:   Pair (Q:2, G:2) -> Rank-1: 28.06%, mAP: 17.00%, mINP: 2.53%
+2026-10-28 01:10:29,070 transreid.train INFO:   Pair (Q:2, G:3) -> Rank-1: 6.28%, mAP: 5.39%, mINP: 1.14%
+2026-10-28 01:10:37,521 transreid.train INFO:   Pair (Q:3, G:1) -> Rank-1: 7.63%, mAP: 5.98%, mINP: 1.42%
+2026-10-28 01:10:46,268 transreid.train INFO:   Pair (Q:3, G:2) -> Rank-1: 7.40%, mAP: 5.35%, mINP: 1.09%
+2026-10-28 01:10:54,827 transreid.train INFO:   Pair (Q:3, G:3) -> Rank-1: 20.61%, mAP: 13.53%, mINP: 2.39%
+2026-10-28 01:10:54,828 transreid.train INFO: VI-ReID results (Table 5 protocol):
+2026-10-28 01:10:54,828 transreid.train INFO:   Setting   Rank-1     mAP    mINP
+2026-10-28 01:10:54,828 transreid.train INFO:   NIR->RGB    23.89%  15.83%   2.99%
+2026-10-28 01:10:54,828 transreid.train INFO:   TIR->RGB     7.63%   5.98%   1.42%
+2026-10-28 01:10:54,828 transreid.train INFO: Modality-pair results (Table 6 protocol):
+2026-10-28 01:10:54,828 transreid.train INFO:   Query Gallery  Rank-1     mAP    mINP
+2026-10-28 01:10:54,828 transreid.train INFO:     RGB     RGB  41.83%  26.57%   5.18%
+2026-10-28 01:10:54,828 transreid.train INFO:     RGB     NIR  26.98%  16.26%   2.40%
+2026-10-28 01:10:54,828 transreid.train INFO:     RGB     TIR   7.12%   5.75%   1.19%
+2026-10-28 01:10:54,828 transreid.train INFO:     NIR     RGB  23.89%  15.83%   2.99%
+2026-10-28 01:10:54,828 transreid.train INFO:     NIR     NIR  28.06%  17.00%   2.53%
+2026-10-28 01:10:54,828 transreid.train INFO:     NIR     TIR   6.28%   5.39%   1.14%
+2026-10-28 01:10:54,828 transreid.train INFO:     TIR     RGB   7.63%   5.98%   1.42%
+2026-10-28 01:10:54,828 transreid.train INFO:     TIR     NIR   7.40%   5.35%   1.09%
+2026-10-28 01:10:54,828 transreid.train INFO:     TIR     TIR  20.61%  13.53%   2.39%
+2026-10-28 01:10:54,829 transreid.train INFO: AG-ReID results (Table 4 protocol; all modalities):
+2026-10-28 01:11:07,836 transreid.train INFO:   A->G -> mAP: 11.51%, Rank-1: 31.04%, Rank-10: 58.07%
+2026-10-28 01:11:21,204 transreid.train INFO:   G->A -> mAP: 13.33%, Rank-1: 30.54%, Rank-10: 54.45%
+2026-10-28 01:11:21,734 transreid.train INFO: Detailed modality-platform evaluation (same-camera gallery samples excluded for every query):
+2026-10-28 01:11:21,734 transreid.train INFO:   Category                                  Query->Gallery       Query Gallery ValidQ  Rank-1     mAP    mINP
+2026-10-28 01:11:26,831 transreid.train INFO:   same_modality_same_platform               RGB-G->RGB-G    1685   23422   1510  41.72%  28.20%   6.72%
+2026-10-28 01:11:26,848 transreid.train INFO:   same_modality_same_platform               RGB-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:11:31,909 transreid.train INFO:   same_modality_same_platform               NIR-G->NIR-G    1685   23422   1510  25.76%  17.28%   3.57%
+2026-10-28 01:11:31,918 transreid.train INFO:   same_modality_same_platform               NIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:11:36,993 transreid.train INFO:   same_modality_same_platform               TIR-G->TIR-G    1685   23422   1510  21.46%  14.75%   2.97%
+2026-10-28 01:11:37,003 transreid.train INFO:   same_modality_same_platform               TIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:11:42,050 transreid.train INFO:   modality_only_ground                      RGB-G->NIR-G    1685   23422   1510  27.22%  17.45%   3.15%
+2026-10-28 01:11:46,925 transreid.train INFO:   modality_only_ground                      NIR-G->RGB-G    1685   23422   1510  24.64%  17.05%   3.74%
+2026-10-28 01:11:51,822 transreid.train INFO:   modality_only_ground                      RGB-G->TIR-G    1685   23422   1510   7.88%   6.58%   1.50%
+2026-10-28 01:11:56,767 transreid.train INFO:   modality_only_ground                      TIR-G->RGB-G    1685   23422   1510   8.15%   6.76%   1.85%
+2026-10-28 01:12:01,669 transreid.train INFO:   modality_only_ground                      NIR-G->TIR-G    1685   23422   1510   6.09%   5.66%   1.36%
+2026-10-28 01:12:06,625 transreid.train INFO:   modality_only_ground                      TIR-G->NIR-G    1685   23422   1510   8.08%   5.99%   1.43%
+2026-10-28 01:12:06,633 transreid.train INFO:   modality_only_aerial                      RGB-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:12:06,642 transreid.train INFO:   modality_only_aerial                      NIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:12:06,650 transreid.train INFO:   modality_only_aerial                      RGB-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:12:06,658 transreid.train INFO:   modality_only_aerial                      TIR-A->RGB-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:12:06,666 transreid.train INFO:   modality_only_aerial                      NIR-A->TIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:12:06,675 transreid.train INFO:   modality_only_aerial                      TIR-A->NIR-A     450    7781      0  SKIPPED (no_valid_query_after_same_camera_exclusion)
+2026-10-28 01:12:08,050 transreid.train INFO:   platform_only                             RGB-G->RGB-A    1685    7781    644  42.39%  31.07%  10.52%
+2026-10-28 01:12:09,462 transreid.train INFO:   platform_only                             RGB-A->RGB-G     450   23422    450  42.22%  27.95%   5.48%
+2026-10-28 01:12:10,857 transreid.train INFO:   platform_only                             NIR-G->NIR-A    1685    7781    644  34.63%  23.92%   5.64%
+2026-10-28 01:12:12,342 transreid.train INFO:   platform_only                             NIR-A->NIR-G     450   23422    450  33.33%  19.28%   2.77%
+2026-10-28 01:12:13,710 transreid.train INFO:   platform_only                             TIR-G->TIR-A    1685    7781    644  20.34%  14.97%   4.06%
+2026-10-28 01:12:15,188 transreid.train INFO:   platform_only                             TIR-A->TIR-G     450   23422    450  21.33%  13.83%   2.24%
+2026-10-28 01:12:16,630 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->NIR-A    1685    7781    644  27.80%  20.61%   5.14%
+2026-10-28 01:12:18,068 transreid.train INFO:   modality_and_platform_ground_to_aerial    RGB-G->TIR-A    1685    7781    644   6.21%   6.34%   2.34%
+2026-10-28 01:12:19,452 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->RGB-A    1685    7781    644  20.50%  16.57%   5.16%
+2026-10-28 01:12:20,912 transreid.train INFO:   modality_and_platform_ground_to_aerial    NIR-G->TIR-A    1685    7781    644   6.06%   6.76%   2.14%
+2026-10-28 01:12:22,350 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->RGB-A    1685    7781    644   8.39%   7.33%   2.55%
+2026-10-28 01:12:23,726 transreid.train INFO:   modality_and_platform_ground_to_aerial    TIR-G->NIR-A    1685    7781    644   7.61%   6.91%   2.18%
+2026-10-28 01:12:25,160 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->NIR-G     450   23422    450  25.56%  14.78%   2.13%
+2026-10-28 01:12:26,593 transreid.train INFO:   modality_and_platform_aerial_to_ground    RGB-A->TIR-G     450   23422    450   8.00%   6.13%   1.27%
+2026-10-28 01:12:27,994 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->RGB-G     450   23422    450  27.56%  17.52%   3.24%
+2026-10-28 01:12:29,431 transreid.train INFO:   modality_and_platform_aerial_to_ground    NIR-A->TIR-G     450   23422    450   7.56%   6.00%   1.26%
+2026-10-28 01:12:30,878 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->RGB-G     450   23422    450   8.22%   5.84%   1.43%
+2026-10-28 01:12:32,370 transreid.train INFO:   modality_and_platform_aerial_to_ground    TIR-A->NIR-G     450   23422    450   5.56%   4.82%   1.12%
+2026-10-28 01:12:32,371 transreid.train INFO: => Detailed protocol CSV saved to ./logs/UAD_V2/fusion_domains_epoch_60.csv
+2026-10-28 01:12:32,404 transreid.train INFO: Validation Results - Epoch: 60, fusion
+2026-10-28 01:12:32,404 transreid.train INFO: mAP: 11.11%, mINP: 0.73%
+2026-10-28 01:12:32,405 transreid.train INFO: CMC curve, Rank-1 : 29.45%
+2026-10-28 01:12:32,405 transreid.train INFO: CMC curve, Rank-5 : 46.45%
+2026-10-28 01:12:32,405 transreid.train INFO: CMC curve, Rank-10: 54.60%
